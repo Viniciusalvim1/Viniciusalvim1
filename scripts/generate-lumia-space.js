@@ -61,31 +61,28 @@ const months = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "
 return months[date.getUTCMonth()];
 }
 
-function esc(value) {
-return String(value)
-.replace(/&/g, "&")
-.replace(/</g, "<")
-.replace(/>/g, ">")
-.replace(/"/g, """);
-}
-
 function buildStars(count, width, height) {
 const stars = [];
+
 for (let i = 0; i < count; i++) {
 const x = 30 + ((i * 137) % (width - 60));
 const y = 30 + ((i * 83) % (height - 60));
 const r = i % 7 === 0 ? 1.7 : i % 3 === 0 ? 1.2 : 0.8;
 const opacity = 0.12 + ((i * 17) % 55) / 100;
+const opacityText = opacity.toFixed(2);
+const duration = 3 + (i % 6);
+const delay = (i % 10) / 5;
 
 ```
 stars.push(
-  '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="#F8FAFC" opacity="' + opacity.toFixed(2) + '">' +
-  '<animate attributeName="opacity" values="' + opacity.toFixed(2) + ';0.9;' + opacity.toFixed(2) + '" dur="' + (3 + (i % 6)) + 's" begin="' + ((i % 10) / 5) + 's" repeatCount="indefinite"/>' +
+  '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="#F8FAFC" opacity="' + opacityText + '">' +
+  '<animate attributeName="opacity" values="' + opacityText + ';0.9;' + opacityText + '" dur="' + duration + 's" begin="' + delay + 's" repeatCount="indefinite"/>' +
   '</circle>'
 );
 ```
 
 }
+
 return stars.join("\n");
 }
 
@@ -107,6 +104,7 @@ const gridY = 315;
 const cell = 22;
 const gap = 8;
 const pitch = cell + gap;
+
 const gridW = weeks.length * pitch;
 const gridH = 7 * pitch;
 
@@ -144,26 +142,40 @@ let lastMonth = "";
 weeks.forEach(function (week, weekIndex) {
 const firstDay = week.contributionDays[0];
 const month = getMonthLabel(firstDay.date);
+
+```
 if (month !== lastMonth) {
-monthPositions.push({ month: month, x: gridX + weekIndex * pitch });
-lastMonth = month;
+  monthPositions.push({
+    month: month,
+    x: gridX + weekIndex * pitch,
+  });
+
+  lastMonth = month;
 }
+```
+
 });
 
-const monthsSvg = monthPositions.map(function (item) {
+const monthsSvg = monthPositions
+.map(function (item) {
 return '<text x="' + item.x + '" y="' + (gridY - 26) + '" class="month">' + item.month + '</text>';
-}).join("\n");
+})
+.join("\n");
 
 const dayLabels = [
 { label: "Seg", row: 1 },
 { label: "Qua", row: 3 },
 { label: "Sex", row: 5 },
-].map(function (item) {
+]
+.map(function (item) {
 return '<text x="' + (gridX - 78) + '" y="' + (gridY + item.row * pitch + 16) + '" class="day">' + item.label + '</text>';
-}).join("\n");
+})
+.join("\n");
 
-const cellsSvg = weeks.map(function (week, weekIndex) {
-return week.contributionDays.map(function (day, dayIndex) {
+const cellsSvg = weeks
+.map(function (week, weekIndex) {
+return week.contributionDays
+.map(function (day, dayIndex) {
 const x = gridX + weekIndex * pitch;
 const y = gridY + dayIndex * pitch;
 const level = getLevel(day.contributionCount);
@@ -174,49 +186,69 @@ const glow = level >= 3 ? ' filter="url(#cellGlow)"' : "";
 const plural = day.contributionCount === 1 ? "" : "s";
 
 ```
-  let pulse = "";
-  if (level > 0) {
-    pulse =
-      '<animate attributeName="opacity" values="0.62;1;0.62" dur="' +
-      (3.2 + level * 0.25) +
-      's" begin="' +
-      delay +
-      's" repeatCount="indefinite"/>';
-  }
+      let pulse = "";
 
-  return [
-    '<rect x="' + x + '" y="' + y + '" width="' + cell + '" height="' + cell + '" rx="6" fill="' + color + '" opacity="' + opacity + '" stroke="#FFFFFF" stroke-opacity="0.035"' + glow + '>',
-    '<title>' + esc(day.date) + ': ' + day.contributionCount + ' contribution' + plural + '</title>',
-    pulse,
-    '</rect>',
-  ].join("\n");
-}).join("\n");
+      if (level > 0) {
+        pulse =
+          '<animate attributeName="opacity" values="0.62;1;0.62" dur="' +
+          (3.2 + level * 0.25) +
+          's" begin="' +
+          delay +
+          's" repeatCount="indefinite"/>';
+      }
+
+      return [
+        '<rect x="' + x + '" y="' + y + '" width="' + cell + '" height="' + cell + '" rx="6" fill="' + color + '" opacity="' + opacity + '" stroke="#FFFFFF" stroke-opacity="0.035"' + glow + '>',
+        '<title>' + day.date + ': ' + day.contributionCount + ' contribution' + plural + '</title>',
+        pulse,
+        '</rect>',
+      ].join("\n");
+    })
+    .join("\n");
+})
+.join("\n");
 ```
-
-}).join("\n");
 
 const legendX = cardX + cardW - 410;
 const legendY = cardY + cardH - 64;
 
-const legendSvg = theme.levels.map(function (color, i) {
+const legendSvg = theme.levels
+.map(function (color, i) {
 const legendGlow = i === 4 ? ' filter="url(#cellGlow)"' : "";
 const legendOpacity = i === 0 ? 0.45 : 0.95;
-return '<rect x="' + (legendX + 86 + i * 36) + '" y="' + (legendY - 19) + '" width="25" height="25" rx="6" fill="' + color + '" opacity="' + legendOpacity + '"' + legendGlow + '/>';
-}).join("\n");
+
+```
+  return (
+    '<rect x="' +
+    (legendX + 86 + i * 36) +
+    '" y="' +
+    (legendY - 19) +
+    '" width="25" height="25" rx="6" fill="' +
+    color +
+    '" opacity="' +
+    legendOpacity +
+    '"' +
+    legendGlow +
+    '/>'
+  );
+})
+.join("\n");
+```
 
 const starsSvg = buildStars(82, width, height);
 const ufoDistance = Math.min(gridW - 170, 1120);
 
-return [
+const svg = [
 '<svg width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '" fill="none" xmlns="http://www.w3.org/2000/svg">',
 '<defs>',
+
+```
 '<linearGradient id="cardGradient" x1="0" y1="0" x2="1" y2="1">',
 '<stop offset="0%" stop-color="' + theme.cardBg + '"/>',
 '<stop offset="58%" stop-color="' + theme.cardBg2 + '"/>',
 '<stop offset="100%" stop-color="' + theme.cardBg + '"/>',
 '</linearGradient>',
 
-```
 '<radialGradient id="nebulaA" cx="50%" cy="50%" r="50%">',
 '<stop offset="0%" stop-color="' + theme.accent + '" stop-opacity="0.20"/>',
 '<stop offset="52%" stop-color="' + theme.accent + '" stop-opacity="0.055"/>',
@@ -243,12 +275,26 @@ return [
 '<stop offset="100%" stop-color="' + theme.accent + '" stop-opacity="0"/>',
 '</linearGradient>',
 
-'<filter id="cellGlow"><feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="' + theme.shadow + '" flood-opacity="0.75"/></filter>',
-'<filter id="softGlow"><feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="' + theme.shadow + '" flood-opacity="0.45"/></filter>',
-'<filter id="strongGlow"><feDropShadow dx="0" dy="0" stdDeviation="18" flood-color="' + theme.shadow + '" flood-opacity="0.8"/></filter>',
+'<filter id="cellGlow">',
+'<feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="' + theme.shadow + '" flood-opacity="0.75"/>',
+'</filter>',
 
-'<clipPath id="cardClip"><rect x="' + cardX + '" y="' + cardY + '" width="' + cardW + '" height="' + cardH + '" rx="' + radius + '"/></clipPath>',
-'<clipPath id="gridClip"><rect x="' + (gridX - 10) + '" y="' + (gridY - 18) + '" width="' + (gridW + 20) + '" height="' + (gridH + 40) + '" rx="24"/></clipPath>',
+'<filter id="softGlow">',
+'<feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="' + theme.shadow + '" flood-opacity="0.45"/>',
+'</filter>',
+
+'<filter id="strongGlow">',
+'<feDropShadow dx="0" dy="0" stdDeviation="18" flood-color="' + theme.shadow + '" flood-opacity="0.8"/>',
+'</filter>',
+
+'<clipPath id="cardClip">',
+'<rect x="' + cardX + '" y="' + cardY + '" width="' + cardW + '" height="' + cardH + '" rx="' + radius + '"/>',
+'</clipPath>',
+
+'<clipPath id="gridClip">',
+'<rect x="' + (gridX - 10) + '" y="' + (gridY - 18) + '" width="' + (gridW + 20) + '" height="' + (gridH + 40) + '" rx="24"/>',
+'</clipPath>',
+
 '</defs>',
 
 '<style>',
@@ -272,10 +318,13 @@ return [
 '</style>',
 
 '<rect width="' + width + '" height="' + height + '" fill="' + theme.pageBg + '"/>',
+
 '<g clip-path="url(#cardClip)">',
 '<rect x="' + cardX + '" y="' + cardY + '" width="' + cardW + '" height="' + cardH + '" rx="' + radius + '" fill="url(#cardGradient)"/>',
+
 '<circle cx="1170" cy="145" r="250" fill="url(#nebulaA)"/>',
 '<circle cx="210" cy="465" r="310" fill="url(#nebulaB)"/>',
+
 starsSvg,
 
 '<path d="M84 560 C250 505, 390 590, 555 525 C760 445, 1005 495, 1360 545" stroke="' + theme.accent + '" stroke-opacity="0.075" stroke-width="3"/>',
@@ -283,7 +332,8 @@ starsSvg,
 
 '<g transform="translate(78 86)">',
 '<rect x="0" y="0" width="106" height="106" rx="28" fill="' + theme.panel + '" opacity="0.58" stroke="#FFFFFF" stroke-opacity="0.12"/>',
-'<path d="M53 28C40 28 30 38 30 51C30 61 36 69 44 72C46 72 47 70 47 69V62C38 64 36 58 36 58C34 54 32 53 32 53C29 51 32 51 32 51C35 51 37 54 37 54C40 59 45 57 47 56C47 54 48 52 49 51C42 50 35 47 35 39C35 36 36 33 38 31C38 30 37 27 39 24C39 24 42 23 47 27C50 26 56 26 59 27C64 23 67 24 67 24C69 27 68 30 68 31C70 33 71 36 71 39C71 47 64 50 57 51C59 53 60 55 60 59V69C60 70 61 72 63 72C71 69 77 61 77 51C77 38 66 28 53 28Z" fill="' + theme.accent + '" filter="url(#softGlow)"/>',
+'<circle cx="53" cy="53" r="28" fill="' + theme.accent + '" opacity="0.18" filter="url(#softGlow)"/>',
+'<path d="M64 28C55 31 48 40 48 51C48 62 55 71 64 74C61 76 57 77 53 77C40 77 29 66 29 53C29 40 40 29 53 29C57 29 61 30 64 28Z" fill="' + theme.accent + '" filter="url(#softGlow)"/>',
 '</g>',
 
 '<text x="214" y="124" class="totalNumber">' + total + '</text>',
@@ -307,6 +357,7 @@ dayLabels,
 
 '<g clip-path="url(#gridClip)">',
 cellsSvg,
+
 '<rect class="scanner" x="' + (gridX - 210) + '" y="' + (gridY - 30) + '" width="220" height="' + (gridH + 60) + '" fill="url(#scannerGradient)" opacity="0.9"/>',
 
 '<g class="ufo" transform="translate(' + (gridX + 40) + ' ' + (gridY - 48) + ')">',
@@ -323,7 +374,9 @@ cellsSvg,
 '</g>',
 
 '<line x1="72" y1="' + (cardY + cardH - 120) + '" x2="' + (cardX + cardW - 72) + '" y2="' + (cardY + cardH - 120) + '" stroke="#FFFFFF" stroke-opacity="0.06"/>',
+
 '<text x="78" y="' + (cardY + cardH - 64) + '" class="footer">Os dados flutuam na rede da Lumia.</text>',
+
 '<text x="' + legendX + '" y="' + legendY + '" class="footer">Menos</text>',
 legendSvg,
 '<text x="' + (legendX + 285) + '" y="' + legendY + '" class="footer">Mais</text>',
@@ -332,12 +385,16 @@ legendSvg,
 '<line x1="0" y1="0" x2="150" y2="55" stroke="#FFFFFF" stroke-opacity="0.65" stroke-width="3" stroke-linecap="round" filter="url(#softGlow)"/>',
 '<circle cx="156" cy="57" r="5" fill="#FFFFFF" filter="url(#strongGlow)"/>',
 '</g>',
+
 '</g>',
+
 '<rect x="' + cardX + '" y="' + cardY + '" width="' + cardW + '" height="' + cardH + '" rx="' + radius + '" fill="none" stroke="' + theme.stroke + '" stroke-width="2"/>',
 '</svg>',
 ```
 
 ].join("\n");
+
+return svg;
 }
 
 async function main() {
@@ -360,4 +417,3 @@ main().catch(function (error) {
 console.error(error);
 process.exit(1);
 });
-::: 
