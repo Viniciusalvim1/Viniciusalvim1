@@ -295,6 +295,7 @@ function makeSvg(calendar, mode) {
     '<polygon class="beam" points="36,48 80,48 135,272 -19,272" fill="url(#beam)" opacity="0.42"/>',
     '</g>',
     '</g>',
+    '</g>',
 
     '<line x1="72" y1="590" x2="1410" y2="590" stroke="#fff" stroke-opacity="0.06"/>',
     '<text x="78" y="646" class="footer">Os dados flutuam na rede da Lumia.</text>',
