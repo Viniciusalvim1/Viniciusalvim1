@@ -72,12 +72,18 @@ function makeSvg(calendar, mode) {
   const ufoDistance = Math.min(gridW - 180, 1120);
 
   const months = [];
-  let last = '';
+  let lastMonth = '';
   for (let w = 0; w < weeks.length; w++) {
-    const m = monthName(weeks[w].contributionDays[0].date);
-    if (m !== last) {
-      months.push('<text x="' + (gridX + w * step) + '" y="' + (gridY - 24) + '" class="month">' + m + '</text>');
-      last = m;
+    for (let d = 0; d < weeks[w].contributionDays.length; d++) {
+      const dateString = weeks[w].contributionDays[d].date;
+      const date = new Date(dateString + 'T00:00:00Z');
+      const dayOfMonth = date.getUTCDate();
+      const month = monthName(dateString);
+      if (dayOfMonth <= 7 && month !== lastMonth) {
+        months.push('<text x="' + (gridX + w * step) + '" y="' + (gridY - 24) + '" class="month">' + month + '</text>');
+        lastMonth = month;
+        break;
+      }
     }
   }
 
