@@ -56,7 +56,7 @@ function makeSvg(calendar, mode) {
   const weeks = calendar.weeks;
   const total = calendar.totalContributions;
   const W = 1500, H = 720;
-  const gridX = 145, gridY = 310, cell = 21, gap = 8, step = cell + gap;
+  const gridX = 145, gridY = 310, cell = 18, gap = 5, step = cell + gap;
   const gridW = weeks.length * step;
   const dark = mode !== 'light';
   const colors = dark ? ['#132233','#113742','#16605D','#24A99B','#63F2C3'] : ['#D7E8EF','#B9E9E0','#7ADFD2','#35CDBA','#0FBF9F'];
@@ -69,7 +69,7 @@ function makeSvg(calendar, mode) {
   const accent2 = dark ? '#7FDBFF' : '#1BA9E1';
   const panel = dark ? '#10263A' : '#FFFFFF';
   const border = dark ? '#23455F' : '#8ED8E0';
-  const ufoDistance = Math.min(gridW - 180, 1120);
+  const ufoDistance = Math.min(gridW - 150, 1030);
 
   const months = [];
   let lastMonth = '';
@@ -115,7 +115,7 @@ function makeSvg(calendar, mode) {
     '<filter id="cellGlow"><feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="' + accent + '" flood-opacity="0.7"/></filter>',
     '<filter id="softGlow"><feDropShadow dx="0" dy="0" stdDeviation="13" flood-color="' + accent + '" flood-opacity="0.55"/></filter>',
     '<clipPath id="cardClip"><rect x="18" y="22" width="1464" height="670" rx="46"/></clipPath>',
-    '<clipPath id="gridClip"><rect x="' + (gridX - 12) + '" y="' + (gridY - 90) + '" width="' + (gridW + 90) + '" height="360" rx="24"/></clipPath>',
+    '<clipPath id="gridClip"><rect x="' + (gridX - 12) + '" y="' + (gridY - 90) + '" width="' + (gridW + 70) + '" height="360" rx="24"/></clipPath>',
     '</defs>',
     '<style>',
     '.total{font:900 48px Arial,sans-serif;fill:' + text + ';letter-spacing:-1px}.subtitle{font:700 28px Arial,sans-serif;fill:' + muted + '}.badge{font:800 22px Arial,sans-serif;fill:' + accent + ';letter-spacing:2px}.btn{font:800 27px Arial,sans-serif;fill:' + text + '}.month{font:700 21px Arial,sans-serif;fill:' + muted + '}.day{font:700 22px Arial,sans-serif;fill:' + muted + '}.footer{font:700 24px Arial,sans-serif;fill:' + muted + '}',
