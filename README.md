@@ -39,7 +39,7 @@ Sou <strong>Vinícius Alvim</strong>, estudante de <strong>Ciência da Computaç
 </p>
 
 <p align="center">
-Atualmente, estou construindo soluções digitais voltadas para <strong>automação, CRM, SaaS e operações reais</strong> — sempre buscando transformar complexidade em sistemas mais elegantes, simples e úteis.
+Atualmente, estou construindo soluções digitais voltadas para <strong>automação, CRM, SaaS e operações reais</strong>, sempre buscando transformar complexidade em sistemas mais elegantes, simples e úteis.
 </p>
 
 <div align="center">
@@ -153,10 +153,10 @@ Focused on: <strong>Lumia</strong>, product thinking, workflows, CRM, SaaS growt
 
 ## 💬 Connect
 
-<a href="https://linkedin.com/in/viniciusalvim">
+<a href="https://www.linkedin.com/in/vin%C3%ADcius-alvim-silveira-49005926a/">
   <img src="https://img.shields.io/badge/LinkedIn-14324A?style=for-the-badge&logo=linkedin&logoColor=63F2C3" />
 </a>
-<a href="https://instagram.com/vinicius_alv1m">
+<a href="https://www.instagram.com/viniciusalvim_/">
   <img src="https://img.shields.io/badge/Instagram-14324A?style=for-the-badge&logo=instagram&logoColor=63F2C3" />
 </a>
 <a href="mailto:Valvimsilveira@gmail.com">
