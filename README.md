@@ -1,6 +1,6 @@
 <div align="center">
 
-<img width="100%" src="https://capsule-render.vercel.app/api?type=blur&height=260&color=0:0A1630,45:10304A,75:114E64,100:63F2C3&text=Vinícius%20Alvim%20Silveira&fontColor=F8FAFC&fontSize=34&fontAlignY=38&desc=Technology%20%E2%9C%A6%20AI%20%E2%9C%A6%20SaaS%20%E2%9C%A6%20Product&descAlignY=58"/>
+<img width="100%" src="https://capsule-render.vercel.app/api?type=blur&height=260&color=0:0A1630,45:10304A,75:114E64,100:63F2C3&text=Vinícius%20Alvim%20Silveira&fontColor=F8FAFC&fontSize=34&fontAlignY=38&desc=Technology%20%E2%9C%A6%20SaaS%20%E2%9C%A6%20Product%20%E2%9C%A6%20Automation&descAlignY=58"/>
 
 <br/>
 
@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/✨%20Construindo-14324A?style=for-the-badge&labelColor=14324A&color=14324A" />
 </a>
 <a href="#stack">
-  <img src="https://img.shields.io/badge/🛠️%20Stack-14324A?style=for-the-badge&labelColor=14324A&color=14324A" />
+  <img src="https://img.shields.io/badge/🌱%20Learning%20Stack-14324A?style=for-the-badge&labelColor=14324A&color=14324A" />
 </a>
 <a href="#stats">
   <img src="https://img.shields.io/badge/📊%20Stats-14324A?style=for-the-badge&labelColor=14324A&color=14324A" />
@@ -22,7 +22,7 @@
 
 <br/><br/>
 
-<img src="https://readme-typing-svg.demolab.com?font=Inter&weight=600&size=22&duration=3200&pause=1000&color=63F2C3&center=true&vCenter=true&width=900&lines=Founder+at+Lumia;Computer+Science+student;Building+digital+products+with+AI;Turning+real+business+problems+into+systems" alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=Inter&weight=600&size=22&duration=3200&pause=1000&color=63F2C3&center=true&vCenter=true&width=900&lines=Founder+at+Lumia;Computer+Science+student;Building+digital+products;Turning+real+business+problems+into+systems" alt="Typing SVG" />
 
 </div>
 
@@ -35,7 +35,7 @@
 </div>
 
 <p align="center">
-Sou <strong>Vinícius Alvim</strong>, estudante de <strong>Ciência da Computação na PUC Minas</strong> e fundador de projetos que conectam <strong>tecnologia, produto, IA e negócios</strong>.
+Sou <strong>Vinícius Alvim</strong>, estudante de <strong>Ciência da Computação na PUC Minas</strong> e fundador de projetos que conectam <strong>tecnologia, produto e negócios</strong>.
 </p>
 
 <p align="center">
@@ -81,13 +81,14 @@ Páginas, sistemas, dashboards, automações e soluções para negócios reais.
 
 <div id="stack" align="center">
 
-## 🛠️ Stack & Tools
+## 🌱 Learning Stack
 
 </div>
 
 <p align="center">
   <img src="https://img.shields.io/badge/JavaScript-0B1020?style=for-the-badge&logo=javascript&logoColor=F7DF1E" />
   <img src="https://img.shields.io/badge/TypeScript-0B1020?style=for-the-badge&logo=typescript&logoColor=3178C6" />
+  <img src="https://img.shields.io/badge/C%23-0B1020?style=for-the-badge&logo=csharp&logoColor=63F2C3" />
   <img src="https://img.shields.io/badge/HTML5-0B1020?style=for-the-badge&logo=html5&logoColor=E34F26" />
   <img src="https://img.shields.io/badge/CSS3-0B1020?style=for-the-badge&logo=css3&logoColor=1572B6" />
   <img src="https://img.shields.io/badge/Supabase-0B1020?style=for-the-badge&logo=supabase&logoColor=3ECF8E" />
@@ -95,13 +96,7 @@ Páginas, sistemas, dashboards, automações e soluções para negócios reais.
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/ChatGPT-14324A?style=for-the-badge&logo=openai&logoColor=74aa9c" />
-  <img src="https://img.shields.io/badge/Claude-14324A?style=for-the-badge&logoColor=ffffff" />
-  <img src="https://img.shields.io/badge/Gemini-14324A?style=for-the-badge&logo=googlegemini&logoColor=8E75FF" />
-</p>
-
-<p align="center">
-  SaaS • Automações • CRM • Growth • IA aplicada a negócios • Produto digital
+  Atualmente aprofundando minha base em programação, engenharia de software, bancos de dados, automações e desenvolvimento de produtos digitais.
 </p>
 
 ---
@@ -113,12 +108,12 @@ Páginas, sistemas, dashboards, automações e soluções para negócios reais.
 </div>
 
 <p align="center">
-  <img height="170" src="https://github-readme-stats.vercel.app/api?username=Viniciusalvim1&show_icons=true&theme=transparent&hide_border=true&title_color=63F2C3&text_color=E6EDF3&icon_color=63F2C3&include_all_commits=true&count_private=true" />
-  <img height="170" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Viniciusalvim1&layout=compact&langs_count=8&theme=transparent&hide_border=true&title_color=63F2C3&text_color=E6EDF3" />
+  <img height="170" src="https://github-readme-stats.vercel.app/api?username=Viniciusalvim1&show_icons=true&theme=transparent&hide_border=true&title_color=63F2C3&text_color=E6EDF3&icon_color=63F2C3&bg_color=00000000&rank_icon=github&v=2" />
+  <img height="170" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Viniciusalvim1&layout=compact&langs_count=8&theme=transparent&hide_border=true&title_color=63F2C3&text_color=E6EDF3&bg_color=00000000&v=2" />
 </p>
 
 <p align="center">
-  <img src="https://streak-stats.demolab.com?user=Viniciusalvim1&theme=transparent&hide_border=true&ring=63F2C3&fire=63F2C3&currStreakLabel=63F2C3&sideLabels=E6EDF3&dates=94A3B8" />
+  <img src="https://streak-stats.demolab.com?user=Viniciusalvim1&theme=transparent&hide_border=true&ring=63F2C3&fire=63F2C3&currStreakLabel=63F2C3&sideLabels=E6EDF3&dates=94A3B8&background=00000000" />
 </p>
 
 ---
@@ -140,7 +135,7 @@ Páginas, sistemas, dashboards, automações e soluções para negócios reais.
 </div>
 
 <p align="center">
-Building <strong>digital products</strong> that combine <strong>software, AI, automation and strategy</strong>.
+Building <strong>digital products</strong> that combine <strong>software, automation and strategy</strong>.
 </p>
 
 <p align="center">
