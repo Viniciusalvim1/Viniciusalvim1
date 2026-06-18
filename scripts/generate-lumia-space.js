@@ -74,7 +74,7 @@ const d = 3 + (i % 5);
 ```
 out.push(
   '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="#ffffff" opacity="' + a + '">' +
-    '<animate attributeName="opacity" values="' + a + ';0.85;' + a + '" dur="' + d + 's" repeatCount="indefinite"/>' +
+  '<animate attributeName="opacity" values="' + a + ';0.85;' + a + '" dur="' + d + 's" repeatCount="indefinite"/>' +
   '</circle>'
 );
 ```
@@ -99,6 +99,7 @@ const step = cell + gap;
 
 const gridW = weeks.length * step;
 const gridH = 7 * step;
+const ufoDistance = Math.min(gridW - 170, 1120);
 
 const dark = mode !== 'light';
 
@@ -134,7 +135,7 @@ if (m !== last) {
 }
 
 const dayLabels = [
-'<text x="70" y="' + (gridY + 1 * step + 16) + '" class="day">Seg</text>',
+'<text x="70" y="' + (gridY + step + 16) + '" class="day">Seg</text>',
 '<text x="70" y="' + (gridY + 3 * step + 16) + '" class="day">Qua</text>',
 '<text x="70" y="' + (gridY + 5 * step + 16) + '" class="day">Sex</text>',
 ].join('\n');
@@ -164,8 +165,8 @@ const opacity = lv === 0 ? '0.38' : '0.86';
 
   cells.push(
     '<rect x="' + x + '" y="' + y + '" width="' + cell + '" height="' + cell + '" rx="6" fill="' + colors[lv] + '" opacity="' + opacity + '" stroke="#ffffff" stroke-opacity="0.04"' + glow + '>' +
-      '<title>' + day.date + ': ' + day.contributionCount + ' commits</title>' +
-      animate +
+    '<title>' + day.date + ': ' + day.contributionCount + ' commits</title>' +
+    animate +
     '</rect>'
   );
 }
@@ -180,8 +181,6 @@ legend.push(
 '<rect x="' + (1110 + i * 34) + '" y="631" width="24" height="24" rx="6" fill="' + colors[i] + '" opacity="' + (i === 0 ? '0.45' : '0.95') + '"/>'
 );
 }
-
-const ufoDistance = Math.min(gridW - 170, 1120);
 
 return [
 '<svg width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '" xmlns="http://www.w3.org/2000/svg">',
@@ -214,10 +213,6 @@ return [
 
 '<filter id="softGlow">',
 '<feDropShadow dx="0" dy="0" stdDeviation="13" flood-color="' + accent + '" flood-opacity="0.55"/>',
-'</filter>',
-
-'<filter id="strongGlow">',
-'<feDropShadow dx="0" dy="0" stdDeviation="20" flood-color="' + accent + '" flood-opacity="0.78"/>',
 '</filter>',
 
 '<clipPath id="cardClip">',
