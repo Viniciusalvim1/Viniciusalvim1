@@ -8,23 +8,23 @@ if (!token) {
   throw new Error("GITHUB_TOKEN não encontrado.");
 }
 
-const query = `
-query($login: String!) {
-  user(login: $login) {
-    contributionsCollection {
-      contributionCalendar {
-        totalContributions
-        weeks {
-          contributionDays {
-            date
-            contributionCount
-          }
-        }
-      }
-    }
-  }
-}
-`;
+const query = [
+  "query($login: String!) {",
+  "  user(login: $login) {",
+  "    contributionsCollection {",
+  "      contributionCalendar {",
+  "        totalContributions",
+  "        weeks {",
+  "          contributionDays {",
+  "            date",
+  "            contributionCount",
+  "          }",
+  "        }",
+  "      }",
+  "    }",
+  "  }",
+  "}",
+].join("\n");
 
 async function fetchContributions() {
   const response = await fetch("https://api.github.com/graphql", {
@@ -58,16 +58,34 @@ function getLevel(count) {
 
 function hashText(text) {
   let hash = 0;
+
   for (let i = 0; i < text.length; i++) {
     hash = (hash << 5) - hash + text.charCodeAt(i);
     hash |= 0;
   }
+
   return Math.abs(hash);
 }
 
 function getMonthLabel(dateString) {
   const date = new Date(`${dateString}T00:00:00Z`);
-  return date.toLocaleString("en-US", { month: "short", timeZone: "UTC" });
+
+  const months = [
+    "Jan",
+    "Fev",
+    "Mar",
+    "Abr",
+    "Mai",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Set",
+    "Out",
+    "Nov",
+    "Dez",
+  ];
+
+  return months[date.getUTCMonth()];
 }
 
 function buildStars(count, width, height) {
@@ -163,6 +181,7 @@ function generateSvg(calendar, mode = "dark") {
         month,
         x: gridX + weekIndex * pitch,
       });
+
       lastMonth = month;
     }
   });
@@ -196,23 +215,21 @@ function generateSvg(calendar, mode = "dark") {
           const level = getLevel(day.contributionCount);
           const color = theme.levels[level];
           const delay = ((weekIndex + dayIndex) % 14) * 0.16;
+
           const pulse =
             level > 0
               ? `
                 <animate
                   attributeName="opacity"
                   values="0.62;1;0.62"
-                  dur="${3.2 + (level * 0.25)}s"
+                  dur="${3.2 + level * 0.25}s"
                   begin="${delay}s"
                   repeatCount="indefinite"
                 />
               `
               : "";
 
-          const glow =
-            level >= 3
-              ? `filter="url(#cellGlow)"`
-              : "";
+          const glow = level >= 3 ? `filter="url(#cellGlow)"` : "";
 
           return `
             <rect
@@ -227,7 +244,9 @@ function generateSvg(calendar, mode = "dark") {
               stroke-opacity="0.035"
               ${glow}
             >
-              <title>${day.date}: ${day.contributionCount} contribution${day.contributionCount === 1 ? "" : "s"}</title>
+              <title>${day.date}: ${day.contributionCount} contribution${
+                day.contributionCount === 1 ? "" : "s"
+              }</title>
               ${pulse}
             </rect>
           `;
@@ -237,7 +256,7 @@ function generateSvg(calendar, mode = "dark") {
     .join("\n");
 
   const legendX = cardX + cardW - 410;
-  const legendY = cardY + cardH - 88;
+  const legendY = cardY + cardH - 64;
 
   const legendSvg = theme.levels
     .map((color, i) => {
@@ -281,7 +300,7 @@ function generateSvg(calendar, mode = "dark") {
 
     <linearGradient id="scannerGradient" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="${theme.accent}" stop-opacity="0"/>
-      <stop offset="42%" stop-color="${theme.accent}" stop-opacity="0.0"/>
+      <stop offset="42%" stop-color="${theme.accent}" stop-opacity="0"/>
       <stop offset="50%" stop-color="${theme.accent}" stop-opacity="0.42"/>
       <stop offset="58%" stop-color="${theme.accent}" stop-opacity="0"/>
       <stop offset="100%" stop-color="${theme.accent}" stop-opacity="0"/>
@@ -310,7 +329,9 @@ function generateSvg(calendar, mode = "dark") {
     </clipPath>
 
     <clipPath id="gridClip">
-      <rect x="${gridX - 10}" y="${gridY - 18}" width="${gridW + 20}" height="${gridH + 40}" rx="24"/>
+      <rect x="${gridX - 10}" y="${gridY - 18}" width="${
+    gridW + 20
+  }" height="${gridH + 40}" rx="24"/>
     </clipPath>
   </defs>
 
@@ -323,11 +344,6 @@ function generateSvg(calendar, mode = "dark") {
 
     .subtitle {
       font: 700 28px Inter, Arial, sans-serif;
-      fill: ${theme.muted};
-    }
-
-    .small {
-      font: 700 20px Inter, Arial, sans-serif;
       fill: ${theme.muted};
     }
 
@@ -389,11 +405,6 @@ function generateSvg(calendar, mode = "dark") {
       transform-origin: center;
     }
 
-    .orbit {
-      stroke-dasharray: 9 11;
-      animation: orbit 10s linear infinite;
-    }
-
     @keyframes scan {
       from { transform: translateX(-360px); opacity: 0; }
       10% { opacity: 1; }
@@ -425,11 +436,6 @@ function generateSvg(calendar, mode = "dark") {
       48% { opacity: 0.95; }
       60% { opacity: 0; transform: translate(230px, 80px); }
       100% { opacity: 0; transform: translate(230px, 80px); }
-    }
-
-    @keyframes orbit {
-      from { stroke-dashoffset: 0; }
-      to { stroke-dashoffset: -220; }
     }
   </style>
 
@@ -508,7 +514,9 @@ function generateSvg(calendar, mode = "dark") {
       </g>
     </g>
 
-    <line x1="72" y1="${cardY + cardH - 120}" x2="${cardX + cardW - 72}" y2="${cardY + cardH - 120}" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <line x1="72" y1="${cardY + cardH - 120}" x2="${
+    cardX + cardW - 72
+  }" y2="${cardY + cardH - 120}" stroke="#FFFFFF" stroke-opacity="0.06"/>
 
     <text x="78" y="${cardY + cardH - 64}" class="footer">Os dados flutuam na rede da Lumia.</text>
 
